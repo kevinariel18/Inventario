@@ -113,5 +113,92 @@ public class ProductosBDD {
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void insertar(Producto producto) throws KrakeDevException {
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    String sql = "INSERT INTO productos (codigo, nombre, id_unidades_medida, precio_venta, tiene_iva, coste, id_categorias, stock) "
+	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+	    try {
+	        
+	        con = conexionBDD.obtenerConexion();
+	        
+	        
+	        ps = con.prepareStatement(sql);
+	        
+	     
+	        ps.setInt(1, producto.getCodigo());
+	        ps.setString(2, producto.getNombre());
+	        ps.setString(3, producto.getUnidadMedida().getNombre());
+	        ps.setBigDecimal(4, producto.getPrecioVenta());
+	        ps.setBoolean(5, producto.isTieneIva());
+	        ps.setBigDecimal(6, producto.getCoste());
+	        ps.setInt(7, producto.getCategoria().getCodigo());
+	        ps.setInt(8, producto.getStock());
+	        
+	      
+	        int filasAfectadas = ps.executeUpdate();
+	        if (filasAfectadas > 0) {
+	            System.out.println("Producto insertado correctamente.");
+	        } else {
+	            throw new KrakeDevException("No se pudo insertar el producto.");
+	        }
+	        
+	    } catch (KrakeDevException e) {
+	        e.printStackTrace();
+	        throw new KrakeDevException("Error al intentar conectarse a la base de datos: " + e.getMessage());
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new KrakeDevException("Error en la consulta SQL: " + e.getMessage());
+	        
+	    } finally {
+	     
+	        if (ps != null) {
+	            try {
+	                ps.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                throw new KrakeDevException("Error al cerrar el PreparedStatement: " + e.getMessage());
+	            }
+	        }
+	        if (con != null) {
+	            try {
+	                con.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                throw new KrakeDevException("Error al cerrar la conexión: " + e.getMessage());
+	            }
+	        }
+	    }
+	}
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
