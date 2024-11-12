@@ -5,10 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 import com.krakedev.inventarios3.entidades.DetallePedido;
+import com.krakedev.inventarios3.entidades.HistorialStock;
 import com.krakedev.inventarios3.entidades.Pedido;
 import com.krakedev.inventarios3.exepciones.KrakeDevException;
 import com.krakedev.inventarios3.utils.conexionBDD;
@@ -93,62 +96,77 @@ public class PedidosBDD {
 
 	public void Entregar(Pedido pedidoentregado) throws KrakeDevException {
 
-		Connection con = null;
-		PreparedStatement ps = null;
-		PreparedStatement psDet = null;
-		String sql = "update cabecera_pedido set id_estado_pedido = 'R' where numero = ?";
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    PreparedStatement psDet = null;
+	    PreparedStatement psHistorial = null;
+	    String sql = "UPDATE cabecera_pedido SET id_estado_pedido = 'R' WHERE numero = ?";
 
-		try {
-			con = conexionBDD.obtenerConexion();
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, pedidoentregado.getCodigo());
-			ps.executeUpdate();
+	    try {
+	        con = conexionBDD.obtenerConexion();
+	        ps = con.prepareStatement(sql);
+	        ps.setInt(1, pedidoentregado.getCodigo());
+	        ps.executeUpdate();
 
-			ArrayList<DetallePedido> detallesPedidosentregado = pedidoentregado.getDetalles();
-			String sqlDetalles = "update detalle_pedido set cantidad_recibida = ?, subtotal = ?  where codigo = ?";
+	        ArrayList<DetallePedido> detallesPedidosentregado = pedidoentregado.getDetalles();
+	        String sqlDetalles = "UPDATE detalle_pedido SET cantidad_recibida = ?, subtotal = ? WHERE codigo = ?";
 
-			DetallePedido detallesPedidosEntregados = null;
+	        DetallePedido detallesPedidosEntregados = null;
 
-			for (int i = 0; i < detallesPedidosentregado.size(); i++) {
+	        for (int i = 0; i < detallesPedidosentregado.size(); i++) {
 
-				detallesPedidosEntregados = detallesPedidosentregado.get(i);
-				psDet = con.prepareStatement(sqlDetalles);
+	            detallesPedidosEntregados = detallesPedidosentregado.get(i);
+	            psDet = con.prepareStatement(sqlDetalles);
 
-				psDet.setInt(1, detallesPedidosEntregados.getCantidadRecibida());
+	            psDet.setInt(1, detallesPedidosEntregados.getCantidadRecibida());
 
-				BigDecimal pv = detallesPedidosEntregados.getProducto().getPrecioVenta();
-				BigDecimal cantidad = new BigDecimal(detallesPedidosEntregados.getCantidadRecibida());
-				BigDecimal subtotal = pv.multiply(cantidad);
+	            // Calcular el subtotal
+	            BigDecimal pv = detallesPedidosEntregados.getProducto().getPrecioVenta();
+	            BigDecimal cantidad = new BigDecimal(detallesPedidosEntregados.getCantidadRecibida());
+	            BigDecimal subtotal = pv.multiply(cantidad);
 
-				psDet.setBigDecimal(2, subtotal);
-				
-				psDet.setInt(3, detallesPedidosEntregados.getCodigo());
-				
-				
-				psDet.executeUpdate();
-				
+	            psDet.setBigDecimal(2, subtotal);
+	            psDet.setInt(3, detallesPedidosEntregados.getCodigo());
+	            psDet.executeUpdate();
 
-			}
+	            // Insertar en el historial de stock
+	            HistorialStock historial = new HistorialStock(
+	                    0, // El código se genera automáticamente por la base de datos
+	                    Timestamp.valueOf(LocalDateTime.now()), // Fecha y hora actuales
+	                    "Pedido " + pedidoentregado.getCodigo(), // Referencia del pedido
+	                    detallesPedidosEntregados.getProducto().getCodigo(),
+	                    detallesPedidosEntregados.getCantidadRecibida()
+	            );
 
-		} catch (KrakeDevException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	            // SQL para insertar el historial de stock
+	            String sqlHistorial = "INSERT INTO historial_stock(fecha, referencia, id_producto, cantidad) VALUES (?, ?, ?, ?)";
+	            psHistorial = con.prepareStatement(sqlHistorial);
+	            psHistorial.setTimestamp(1, historial.getFecha());
+	            psHistorial.setString(2, historial.getReferencia());
+	            psHistorial.setInt(3, historial.getIdProducto());
+	            psHistorial.setInt(4, historial.getCantidad());
+	            psHistorial.executeUpdate();
+	        }
 
-			throw new KrakeDevException("Error en la conexion de base de datos: " + e.getMessage());
+	    } catch (KrakeDevException e) {
+	        e.printStackTrace();
+	        throw new KrakeDevException("Error en la conexión de base de datos: " + e.getMessage());
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new KrakeDevException("Error en registro de pedido: " + e.getMessage());
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new KrakeDevException("Error en registro de pedido: " + e.getMessage());
 
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (psDet != null) psDet.close();
+	            if (psHistorial != null) psHistorial.close();
+	            if (con != null) con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
+
 
 }
