@@ -7,9 +7,12 @@ public class KrakeDevException extends Exception {
 	}
 	
 	
-	
-	
-	
+
+    // Constructor con mensaje de error y causa
+    public KrakeDevException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 	
 	
 }

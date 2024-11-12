@@ -1,4 +1,5 @@
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\Categoria.java
+C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\servicios\ServiciosPedidos.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\exepciones\KrakeDevException.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\UnidadDeMedida.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\TipoDocumento.java
@@ -6,6 +7,7 @@ C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventa
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios\bdd\TipoDocumentosBDD.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\Pedido.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\servicios\TipoDocumentoService.java
+C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\DetallePedido.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios\bdd\PedidosBDD.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\EstadoPedido.java
 C:\Users\LENOVO\Documents\MODULO2\iventarios3\src\main\java\com\krakedev\inventarios3\entidades\Producto.java

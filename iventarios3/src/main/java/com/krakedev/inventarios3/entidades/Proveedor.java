@@ -17,33 +17,6 @@ public class Proveedor {
 	public Proveedor() {
     }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -61,84 +34,18 @@ public class Proveedor {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getIdentificador() {
 		return identificador;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public TipoDocumento getTipoDocumento() {
 		return tipoDocumento;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -148,63 +55,15 @@ public class Proveedor {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getNombre() {
 		return nombre;
 	}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -216,61 +75,14 @@ public class Proveedor {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getCorreo() {
 		return correo;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -280,62 +92,15 @@ public class Proveedor {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getDireccion() {
 		return direccion;
 	}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

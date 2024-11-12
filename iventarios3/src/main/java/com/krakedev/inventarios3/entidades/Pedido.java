@@ -1,89 +1,87 @@
 package com.krakedev.inventarios3.entidades;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
 public class Pedido {
 
-    private int id;
-    private Proveedor proveedor;
-    private String fecha;
-    private EstadoPedido estadoPedido;
-    private ArrayList<DetallePedido> detalles;
- 
-    public Pedido() {
-    }
+	private int codigo;
+	private Proveedor proveedor;
+	private Date fecha;
+	private EstadoPedido estadoPedido;
+	private ArrayList<DetallePedido> detalles;
+	
 
+	@Override
+	public String toString() {
+		return "Pedido [codigo=" + codigo + ", proveedor=" + proveedor + ", fecha=" + fecha + ", estadoPedido="
+				+ estadoPedido + "]";
+	}
 
-    
+	
+    public Pedido() {}
 
- 
-    public Pedido(int id, Proveedor proveedor, String fecha, EstadoPedido estadoPedido,
-			ArrayList<DetallePedido> detalles) {
+	public Pedido(int codigo, Proveedor proveedor, Date fecha, EstadoPedido estadoPedido) {
 		super();
-		this.id = id;
+		this.codigo = codigo;
 		this.proveedor = proveedor;
 		this.fecha = fecha;
 		this.estadoPedido = estadoPedido;
-		this.detalles = detalles;
 	}
 
+	public int getCodigo() {
+		return codigo;
+	}
 
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
 
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
 
-	public int getId() {
-        return id;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
+	public EstadoPedido getEstadoPedido() {
+		return estadoPedido;
+	}
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public EstadoPedido getEstadoPedido() {
-        return estadoPedido;
-    }
-
-    public void setEstadoPedido(EstadoPedido estadoPedido) {
-        this.estadoPedido = estadoPedido;
-    }
-
+	public void setEstadoPedido(EstadoPedido estadoPedido) {
+		this.estadoPedido = estadoPedido;
+	}
 
 	public ArrayList<DetallePedido> getDetalles() {
 		return detalles;
 	}
-
 
 	public void setDetalles(ArrayList<DetallePedido> detalles) {
 		this.detalles = detalles;
 	}
 
 
-
-
-
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", proveedor=" + proveedor + ", fecha=" + fecha + ", estadoPedido=" + estadoPedido
-				+ ", detalles=" + detalles + "]";
+	public Pedido(int codigo, Proveedor proveedor, Date fecha, EstadoPedido estadoPedido,
+			ArrayList<DetallePedido> detalles) {
+		super();
+		this.codigo = codigo;
+		this.proveedor = proveedor;
+		this.fecha = fecha;
+		this.estadoPedido = estadoPedido;
+		this.detalles = detalles;
 	}
 
-   
+	
+	
 }
