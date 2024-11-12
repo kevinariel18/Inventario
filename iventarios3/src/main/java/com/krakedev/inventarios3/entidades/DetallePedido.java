@@ -3,7 +3,9 @@ package com.krakedev.inventarios3.entidades;
 import java.math.BigDecimal;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class DetallePedido {
 
